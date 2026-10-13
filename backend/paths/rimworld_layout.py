@@ -102,7 +102,7 @@ def resolve_rimworld_layout(install_path: str, system_name: str | None = None) -
     install_root = path
     layout_kind = "windows" if resolved_system_name == "Windows" else "linux" if resolved_system_name == "Linux" else "unknown"
     executable_candidates = {
-        "Windows": [install_root / "RimWorldWin64.exe", install_root / "RimWorldWin.exe"],
+        "Windows": [install_root / "RimWorld.exe", install_root / "RimWorldWin64.exe", install_root / "RimWorldWin.exe"],
         "Linux": [install_root / "RimWorldLinux", install_root / "RimWorldLinux.x86_64"],
     }.get(resolved_system_name, [])
     executable_path = ""

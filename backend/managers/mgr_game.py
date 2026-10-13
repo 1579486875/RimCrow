@@ -26,7 +26,7 @@ class GameManager:
     """
 
     PROCESS_NAMES_BY_SYSTEM = {
-        'Windows': ("RimWorldWin64.exe", "RimWorldWin.exe"),
+        'Windows': ("RimWorld.exe", "RimWorldWin64.exe", "RimWorldWin.exe"),
         'Darwin': ("RimWorldMac",),
         'Linux': ("RimWorldLinux", "RimWorldLinux.x86_64", "RimWorldWin64.exe", "RimWorldWin.exe"),
     }

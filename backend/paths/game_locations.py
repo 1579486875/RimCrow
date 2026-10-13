@@ -74,10 +74,13 @@ def get_default_player_log_paths(filename: str = "Player.log", system_name: str 
             _join_path(resolved_system_name, home, "Library", "Logs", "Unity", target_name),
         ], system_name=resolved_system_name)
 
-    return unique_paths([
-        os.path.join(root, target_name)
-        for root in get_default_user_data_paths(system_name=resolved_system_name)
-    ], system_name=resolved_system_name)
+    user_data_roots = get_default_user_data_paths(system_name=resolved_system_name)
+    # 1.7(Waylith) 起日志移入 Logs 子目录，新位置优先，同时保留旧位置以兼容 1.6 及更早版本。
+    return unique_paths(
+        [os.path.join(root, "Logs", target_name) for root in user_data_roots]
+        + [os.path.join(root, target_name) for root in user_data_roots],
+        system_name=resolved_system_name,
+    )
 
 
 def get_default_steam_root_candidates(system_name: str | None = None) -> list[str]:
@@ -144,7 +147,7 @@ def find_app_bundle_path(executable_or_install_path: str) -> str:
 def detect_rimworld_executable(install_path: str, system_name: str | None = None) -> str:
     resolved_system_name = _resolved_system_name(system_name)
     candidates_by_system = {
-        "Windows": ["RimWorldWin64.exe", "RimWorldWin.exe"],
+        "Windows": ["RimWorld.exe", "RimWorldWin64.exe", "RimWorldWin.exe"],
         "Darwin": ["RimWorldMac.app", "RimWorldMac"],
         "Linux": ["RimWorldLinux", "RimWorldLinux.x86_64", "start_RimWorld.sh"],
     }
